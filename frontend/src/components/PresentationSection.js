@@ -1,5 +1,5 @@
 import React from "react";
-import navLogo from "../../../images/blog-logo.png";
+import navLogo from "../images/blog-logo.png";
 
 const PresentationSection = () => {
   return (

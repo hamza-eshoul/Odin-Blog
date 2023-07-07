@@ -16,16 +16,16 @@ const Navbar = () => {
 
       <div className="flex gap-2 nav-border px-3">
         <Link to="/" className="nav-links">
-          About
+          Home
         </Link>
-        <Link to="/article" className="nav-links">
+        <Link to="/articles_list" className="nav-links">
           Articles
         </Link>
-        <Link to="/" className="nav-links">
-          Projects
+        <Link to="/login" className="nav-links">
+          Log in
         </Link>
-        <Link to="/" className="nav-links">
-          Speaking
+        <Link to="/signup" className="nav-links">
+          Sign up
         </Link>
         <Link to="/" className="nav-links">
           Uses
