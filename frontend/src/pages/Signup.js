@@ -17,14 +17,14 @@ const Login = () => {
   const navigate = useNavigate();
 
   // functions
-  const handleLogin = (e) => {
+  const handleSignup = (e) => {
     setIsLoading(true);
     setError(null);
 
     e.preventDefault();
-    // login POST request
-    const loginUser = async () => {
-      const response = await fetch("http://localhost:4000/user/login", {
+    // signup POST request
+    const signupUser = async () => {
+      const response = await fetch("http://localhost:4000/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const Login = () => {
       }
     };
 
-    loginUser();
+    signupUser();
   };
 
   return (
@@ -67,14 +67,14 @@ const Login = () => {
 
         <form
           className="flex flex-col gap-2 items-center"
-          onSubmit={handleLogin}
+          onSubmit={handleSignup}
         >
-          <h1 className="text-4xl font-bold dark:text-white"> Log In</h1>
+          <h1 className="text-4xl font-bold dark:text-white"> Sign Up</h1>
           <p className="text-zinc-700/90 leading-7 text-justify dark:text-zinc-400">
-            Don't have an account ?{" "}
-            <Link to="/signup" className="text-teal-500">
+            Already have an account ?{" "}
+            <Link to="/login" className="text-teal-500">
               {" "}
-              Sign up
+              Log in
             </Link>
           </p>
           <div className="flex flex-col gap-6 mt-6 w-full">
@@ -115,11 +115,10 @@ const Login = () => {
               ) : (
                 <button className=" bg-teal-400/90 hover:bg-teal-500/90 cursor-pointer text-white font-medium  py-2.5 rounded-lg w-1/4 dark:text-zinc-900 dark:bg-teal-400/80 dark:hover:bg-teal-400/90">
                   {" "}
-                  Log In
+                  Sign Up
                 </button>
               )}
             </div>
-
             {error !== null ? (
               <div className="text-red-500 font-semibold text-center text-lg">
                 {" "}

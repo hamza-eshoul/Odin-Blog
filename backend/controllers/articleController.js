@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const Article = require("../models/articleModel");
 
 // get all articles
@@ -59,4 +58,33 @@ exports.get_one_article = async (req, res) => {
     });
   }
   res.status(200).json(article);
+};
+
+// add comment to article
+exports.add_comment_artice = async (req, res) => {
+  // destructure the body of the request
+  const { user, commentContent, articleId } = req.body;
+
+  // update article comments
+  const addArticleComment = await Article.findByIdAndUpdate(
+    articleId,
+    {
+      $push: {
+        comments: {
+          author: user,
+          content: commentContent,
+        },
+      },
+    },
+    { new: true }
+  );
+
+  if (!addArticleComment) {
+    res.status(400).json({
+      errorMsg: "The article comment could not be added",
+    });
+  }
+
+  res.status(200).json(addArticleComment);
+  addArticleComment.save();
 };

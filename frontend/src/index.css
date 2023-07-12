@@ -4,10 +4,10 @@
 
 @layer components {
   .nav-links {
-    @apply hover:text-teal-500 px-3 py-2 text-zinc-800 text-sm font-medium;
+    @apply hover:text-teal-500 px-3 py-2 text-zinc-800 dark:text-white dark:hover:text-teal-500 text-sm font-medium;
   }
 
   .nav-border {
-    @apply rounded-full border-zinc-800/5 border-[1px] backdrop-blur shadow-md;
+    @apply rounded-full border-zinc-800/5 border-[1px] backdrop-blur shadow-md dark:bg-zinc-800/90;
   }
 }

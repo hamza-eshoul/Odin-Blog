@@ -8,13 +8,12 @@ import developerMindset from "../images/devMindset.webp";
 import { useArticleContext } from "../hooks/useArticleContext";
 
 const ShowcaseBlog = ({ articleId, articleImage, rotateDegrees }) => {
-  const { dispatch } = useArticleContext();
+  // state
   const [showcaseImg, setShowcaseImg] = useState("");
   const [rotateDegree, setRotateDegree] = useState("");
 
-  const setArticle = () => {
-    dispatch({ type: "SET_ARTICLE_ID", payload: articleId });
-  };
+  // hooks
+  const { dispatch } = useArticleContext();
 
   useEffect(() => {
     if (articleImage == "problemSolving") {
@@ -34,6 +33,11 @@ const ShowcaseBlog = ({ articleId, articleImage, rotateDegrees }) => {
       setRotateDegree(rotateDegrees.rotate3);
     }
   }, []);
+
+  // functions
+  const setArticle = () => {
+    dispatch({ type: "SET_ARTICLE_ID", payload: articleId });
+  };
 
   return (
     <Link
