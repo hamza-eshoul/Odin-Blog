@@ -1,29 +1,68 @@
-import React from "react";
+// icons
+import { MdWorkOutline } from "react-icons/md";
 
-const WorkExperience = ({ workTitle, workPosition, workDate, svgLogo }) => {
+// svgs
+import { ReactComponent as PlaneteriaLogo } from "../assets/svg/Planetaria.svg";
+import { ReactComponent as AirbnbLogo } from "../assets/svg/Airbnb.svg";
+import { ReactComponent as FacebookLogo } from "../assets/svg/Facebook.svg";
+import { ReactComponent as StarbucksLogo } from "../assets/svg/Starbucks.svg";
+
+// components
+import WorkPosition from "./WorkPosition";
+
+const workPositions = [
+  {
+    workTitle: "Planeteria",
+    workPosition: "CEO",
+    workDate: "2019 - Present",
+    svgLogo: PlaneteriaLogo,
+  },
+  {
+    workTitle: "Airbnb",
+    workPosition: "Product Designer",
+    workDate: "2014 - 2019",
+    svgLogo: AirbnbLogo,
+  },
+  {
+    workTitle: "Facebook",
+    workPosition: "iOS Software Engineer",
+    workDate: "2011 - 2014",
+    svgLogo: FacebookLogo,
+  },
+  {
+    workTitle: "Starbucks",
+    workPosition: "Shift Supervisor",
+    workDate: "2008 - 2011",
+    svgLogo: StarbucksLogo,
+  },
+];
+
+const WorkExperience = ({ toggleToastNotification }) => {
   return (
-    <div className="flex justify-between">
-      <div className="flex gap-4">
-        {/* img */}
-        <div className="border-[1px] border-zinc-100 w-11 h-11 rounded-full bg-white p-1 flex justify-center items-center dark:bg-zinc-800/90 dark:border-zinc-700">
-          {svgLogo}
-        </div>
-
-        {/* Work Title */}
-        <div className="flex flex-col gap-2">
-          <h2 className="text-sm font-semibold dark:text-white">
-            {" "}
-            {workTitle}{" "}
-          </h2>
-          <h3 className="text-[13px] text-zinc-600/90 dark:text-zinc-400">
-            {" "}
-            {workPosition}{" "}
-          </h3>
-        </div>
+    <div className="border-[1px] border-zinc-100 rounded-xl flex flex-col gap-3 p-6 mt-6 dark:border-zinc-700">
+      <div className="flex gap-3 items-center">
+        <MdWorkOutline className="text-xl text-zinc-600" />
+        <h2 className="text-sm font-semibold dark:text-white"> Work</h2>
       </div>
 
-      {/* Date */}
-      <p className="text-[13px] text-zinc-400/90"> {workDate}</p>
+      <div className="flex flex-col gap-6">
+        {workPositions.map((workPosition) => (
+          <WorkPosition
+            workTitle={workPosition.workTitle}
+            workPosition={workPosition.workPosition}
+            workDate={workPosition.workDate}
+            svgLogo={<workPosition.svgLogo />}
+          />
+        ))}
+      </div>
+
+      <button
+        className="text-sm bg-zinc-100/50 hover:bg-zinc-100 transition p-3 rounded-lg dark:text-white dark:bg-zinc-800/90 dark:hover:bg-zinc-800"
+        onClick={toggleToastNotification}
+      >
+        {" "}
+        Download CV
+      </button>
     </div>
   );
 };

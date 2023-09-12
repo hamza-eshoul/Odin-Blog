@@ -1,20 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { MdKeyboardArrowRight } from "react-icons/md";
+import { useEffect, useState } from "react";
 import { useArticleContext } from "../hooks/useArticleContext";
 import { Link } from "react-router-dom";
 
-const ArticleCard = ({ title, introduction, date, articleId }) => {
-  // state
-  const [articleCardDate, setArticleCardDate] = useState();
+// icons
+import { MdKeyboardArrowRight } from "react-icons/md";
 
-  // hooks
+const ArticleCard = ({ title, introduction, date, articleId }) => {
+  const [articleCardDate, setArticleCardDate] = useState();
   const { dispatch, formatDate } = useArticleContext();
 
   useEffect(() => {
     formatArticleCardDate(date);
   }, [date]);
 
-  // functions
   const setArticle = () => {
     dispatch({ type: "SET_ARTICLE_ID", payload: articleId });
   };

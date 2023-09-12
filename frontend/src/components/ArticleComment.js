@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SiReactos } from "react-icons/si";
 import { useArticleContext } from "../hooks/useArticleContext";
 

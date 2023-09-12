@@ -24,13 +24,16 @@ const Login = () => {
     e.preventDefault();
     // signup POST request
     const signupUser = async () => {
-      const response = await fetch("http://localhost:4000/user/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
+      const response = await fetch(
+        "https://odin-blog-api-rezs.onrender.com/user/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
 
       const json = await response.json();
 

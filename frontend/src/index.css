@@ -11,3 +11,7 @@
     @apply rounded-full border-zinc-800/5 border-[1px] backdrop-blur shadow-md dark:bg-zinc-800/90;
   }
 }
+
+/* fetch */
+.error {
+}
