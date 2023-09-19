@@ -15,6 +15,9 @@ router.get("/five_articles", articleController.get_five_articles);
 router.get("/:id", articleController.get_one_article);
 
 // add comment to an article
-router.post("/addComment", articleController.add_comment_artice);
+router.post("/comment", articleController.add_comment_article);
+
+// delete comment from an article
+router.delete("/comment", articleController.delete_comment_article);
 
 module.exports = router;

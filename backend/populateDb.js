@@ -1,14 +1,5 @@
 const Article = require("./models/articleModel");
 
-// #1 Get a reference to the document
-const updateComments = async () => {
-  const updateArticle = await Article.find();
-
-  console.log(updateArticle);
-};
-
-updateComments();
-
 const populateDB = async () => {
   // Create articles
   await Promise.all([
@@ -57,4 +48,4 @@ async function articleCreate(title, introduction, image, content) {
   article.save();
 }
 
-populateDB();
+module.exports = populateDB;
