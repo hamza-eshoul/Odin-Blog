@@ -12,11 +12,11 @@ const Toast = ({
     <>
       {toastNotification && (
         <div
-          className={`flex gap-4 items-center absolute right-1/3 bottom-6  ${bgColor} ${textColor} p-4 rounded-lg shadow-2xl border-[1px] border-primaryGray to-zinc-100 z-10`}
+          className={`fixed bottom-4 left-[50%] mx-auto flex -translate-x-1/2 -translate-y-1/2 items-center gap-4 ${bgColor} ${textColor} border-primaryGray z-10 rounded-lg border-[1px] to-zinc-100 p-4 text-base shadow-2xl dark:border-zinc-500 dark:bg-teal-800`}
         >
-          <AiOutlineInfoCircle className="text-xl" />
+          <AiOutlineInfoCircle className="hidden text-xl md:block" />
           <div>
-            <h2 className="font-semibold">
+            <h2 className="hidden font-semibold md:block">
               {" "}
               {elementType.charAt(0).toUpperCase() + elementType.slice(1)}{" "}
               Notification
@@ -24,7 +24,7 @@ const Toast = ({
             <p>This {elementType} is used for decoration purposes only </p>
           </div>
           <RxCross1
-            className="cursor-pointer"
+            className="hidden cursor-pointer text-lg sm:block"
             onClick={() => setToastNotification(null)}
           />
         </div>

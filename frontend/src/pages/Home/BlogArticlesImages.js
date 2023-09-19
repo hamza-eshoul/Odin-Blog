@@ -2,6 +2,8 @@ import { useFetch } from "../../hooks/useFetch";
 
 // components
 import ArticleImage from "./ArticleImage";
+import Loading from "../../components/Loading";
+import Error from "../../components/Error";
 
 const rotateDegrees = {
   rotate1: "rotate-3",
@@ -17,10 +19,27 @@ const BlogArticlesImages = () => {
 
   const { error, isPending, data: blogArticles } = useFetch(blog_articles_url);
 
+  if (isPending) {
+    return (
+      <div className="my-20">
+        <Loading
+          loadingColor={"teal"}
+          loadingSize={50}
+          loadingHeight={"h-full"}
+        />
+      </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className="my-20">
+        <Error error={error} errorHeight={"h-full"} />
+      </div>
+    );
+  }
+
   return (
-    <div className="flex gap-8 justify-center absolute top-[550px] w-full">
-      {error && <p className="error"> {error}</p>}
-      {isPending && <p className="loading">Loading...</p>}
+    <section className="mx-auto my-20 flex justify-center gap-8 sm:w-[1600px]">
       {blogArticles &&
         blogArticles.map((blogArticle) => (
           <ArticleImage
@@ -30,7 +49,7 @@ const BlogArticlesImages = () => {
             rotateDegrees={rotateDegrees}
           />
         ))}
-    </div>
+    </section>
   );
 };
 

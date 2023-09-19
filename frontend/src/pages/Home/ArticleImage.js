@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useArticleContext } from "../../hooks/useArticleContext";
 import { Link } from "react-router-dom";
 
 // images
@@ -12,8 +11,6 @@ import problemSolving from "../../assets/images/problemSolving.jpg";
 const ArticleImage = ({ articleId, article_image, rotateDegrees }) => {
   const [articleImage, setArticleImage] = useState(null);
   const [rotateDegree, setRotateDegree] = useState(null);
-
-  const { dispatch } = useArticleContext();
 
   useEffect(() => {
     if (article_image === "problemSolving") {
@@ -42,21 +39,20 @@ const ArticleImage = ({ articleId, article_image, rotateDegrees }) => {
     }
   }, [articleImage]);
 
-  const setArticle = () => {
-    dispatch({ type: "SET_ARTICLE_ID", payload: articleId });
-  };
-
   return (
     <Link
-      to="/article"
-      className="h-[320px] w-[288px] cursor-pointer"
-      onClick={setArticle}
+      to={`/article/${articleId}`}
+      className="h-[195.5px] 
+      w-[178px]
+      cursor-pointer 
+      sm:h-[320px]
+      sm:w-[288px]"
     >
       {articleImage && (
         <img
           src={articleImage}
           alt="blog article image"
-          className={`h-full w-full object-cover rounded-xl ${rotateDegree}`}
+          className={`h-full w-full rounded-xl object-cover ${rotateDegree}`}
         />
       )}
     </Link>

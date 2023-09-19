@@ -39,8 +39,8 @@ const workPositions = [
 
 const WorkExperience = ({ toggleToastNotification }) => {
   return (
-    <div className="border-[1px] border-zinc-100 rounded-xl flex flex-col gap-3 p-6 mt-6 dark:border-zinc-700">
-      <div className="flex gap-3 items-center">
+    <div className="mt-6 flex flex-col gap-3 rounded-xl border-[1px] border-zinc-100 p-6 dark:border-zinc-700">
+      <div className="flex items-center gap-3">
         <MdWorkOutline className="text-xl text-zinc-600" />
         <h2 className="text-sm font-semibold dark:text-white"> Work</h2>
       </div>
@@ -48,6 +48,7 @@ const WorkExperience = ({ toggleToastNotification }) => {
       <div className="flex flex-col gap-6">
         {workPositions.map((workPosition) => (
           <WorkPosition
+            key={workPosition.workTitle}
             workTitle={workPosition.workTitle}
             workPosition={workPosition.workPosition}
             workDate={workPosition.workDate}
@@ -57,7 +58,7 @@ const WorkExperience = ({ toggleToastNotification }) => {
       </div>
 
       <button
-        className="text-sm bg-zinc-100/50 hover:bg-zinc-100 transition p-3 rounded-lg dark:text-white dark:bg-zinc-800/90 dark:hover:bg-zinc-800"
+        className="rounded-lg bg-zinc-100/50 p-3 text-sm transition hover:bg-zinc-100 dark:bg-zinc-800/90 dark:text-white dark:hover:bg-zinc-800"
         onClick={toggleToastNotification}
       >
         {" "}

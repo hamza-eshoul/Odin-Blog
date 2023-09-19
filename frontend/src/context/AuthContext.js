@@ -1,6 +1,5 @@
 import { createContext, useEffect, useReducer } from "react";
 
-// create the context
 export const AuthContext = createContext();
 
 export const authReducer = (state, action) => {

@@ -1,52 +1,53 @@
+import { useEffect, useState } from "react";
 import { useFetch } from "../hooks/useFetch";
-import { useNavigate } from "react-router-dom";
-
-// icons
-import { FaArrowLeft } from "react-icons/fa";
 
 // components
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import ArticleCard from "../components/ArticleCard";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 const ArticlesList = () => {
-  const navigate = useNavigate();
+  const [isCardStacked, setIsCardStacked] = useState(false);
 
   const articles_list_url = "https://odin-blog-api-rezs.onrender.com/articles";
 
   const { error, isPending, data: articles } = useFetch(articles_list_url);
 
-  return (
-    <main className="max-w-6xl mx-auto bg-white h-full shadow-sm border-[1px] border-zinc-800/5 pt-6 relative dark:bg-zinc-900 dark:border-zinc-800/90">
-      <Navbar />
-      {/* Arrow */}
-      <div
-        className="w-9 h-9 border-[1px] border-zinc-200 rounded-full flex justify-center items-center absolute top-[335px] left-[50px] dark:border-zinc-600"
-        onClick={() => {
-          navigate(-1);
-        }}
-      >
-        {" "}
-        <FaArrowLeft className="text-zinc-500 hover:text-zinc-700 cursor-pointer dark:hover:text-teal-500" />
-      </div>
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      if (window.innerWidth <= "768") {
+        setIsCardStacked(true);
+      } else {
+        setIsCardStacked(false);
+      }
+    });
+  }, []);
 
-      <section className="w-[75%] pl-32 bg-white my-28 flex flex-col gap-6  dark:bg-zinc-900 dark:border-zinc-800/90">
+  return (
+    <main className="relative mx-auto max-w-7xl">
+      <section className="mx-auto my-28 flex max-w-3xl flex-col gap-6  dark:border-zinc-800/90 dark:bg-zinc-900 sm:px-10 lg:mx-0 lg:max-w-5xl lg:px-24">
         {/* Title*/}
-        <h1 className="text-5xl font-bold dark:text-white">
+        <h1 className="px-4 text-4xl font-bold dark:text-white sm:px-0 sm:text-5xl">
           {" "}
           Writing on programming, philosophy, and the self-overcoming concept.
         </h1>
 
         {/* Introduction */}
-        <p className="text-zinc-600/90 leading-7 text-justify dark:text-zinc-400">
+        <p className="px-4 text-justify leading-7 text-zinc-600/90 dark:text-zinc-400 sm:px-0">
           All of my long-form thoughts on programming, philosophy, and more,
           collected in chronological order.
         </p>
 
         {/* Articles List */}
-        <div className="border-l-[1px] border-zinc-100 dark:border-zinc-800/90">
-          {error && <p className="error">{error}</p>}
-          {isPending && <p className="loading">Loading...</p>}
+        <section className="border-zinc-100 dark:border-zinc-800/90 md:border-l-[1px]">
+          {error && <Error error={error} errorHeight={"h-[80vh]"} />}
+          {isPending && (
+            <Loading
+              loadingColor={"teal"}
+              loadingSize={50}
+              loadingHeight={"h-[80vh]"}
+            />
+          )}
           {articles &&
             articles.map((article) => (
               <ArticleCard
@@ -55,11 +56,11 @@ const ArticlesList = () => {
                 introduction={article.introduction}
                 date={article.createdAt}
                 articleId={article._id}
+                isStacked={isCardStacked}
               />
             ))}
-        </div>
+        </section>
       </section>
-      <Footer />
     </main>
   );
 };

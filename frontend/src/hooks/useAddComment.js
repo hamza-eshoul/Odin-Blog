@@ -1,25 +1,45 @@
+import { useState } from "react";
+
 export const useAddComment = () => {
+  const [error, setError] = useState(null);
+  const [isPending, setIsPending] = useState(null);
+
   const addComment = async (user, commentContent, articleId) => {
-    // send a post request
-    const response = await fetch(
-      "https://odin-blog-api-rezs.onrender.com/articles/addComment",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    setIsPending(true);
+    setError(null);
+
+    try {
+      const res = await fetch(
+        "https://odin-blog-api-rezs.onrender.com/articles/comment",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            user,
+            commentContent,
+            articleId,
+          }),
         },
-        body: JSON.stringify({
-          user,
-          commentContent,
-          articleId,
-        }),
+      );
+
+      if (!res || !res.ok) {
+        throw new Error(res.statusText);
       }
-    );
 
-    const json = await response.json();
+      setIsPending(false);
+      setError(null);
 
-    return json;
+      const json = await res.json();
+
+      return json;
+    } catch (err) {
+      setIsPending(false);
+      setError("Could not add the comment");
+      console.log(err.message);
+    }
   };
 
-  return { addComment };
+  return { addComment, error, setError, isPending };
 };

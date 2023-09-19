@@ -2,10 +2,12 @@ import { useFetch } from "../../hooks/useFetch";
 import { useState } from "react";
 
 // components
-import BlogCards from "../../components/BlogCards";
 import MockEmailing from "../../components/MockEmailing";
 import WorkExperience from "../../components/WorkExperience";
 import Toast from "../../components/Toast";
+import ArticleCard from "../../components/ArticleCard";
+import Loading from "../../components/Loading";
+import Error from "../../components/Error";
 
 const HomepageBody = () => {
   const [toastNotification, setToastNotification] = useState(null);
@@ -27,36 +29,45 @@ const HomepageBody = () => {
     }, 5000);
   };
   return (
-    <section className=" mx-12 flex gap-10">
-      {/* Blog Cards */}
-      <div className="flex flex-col gap-4 w-[60%]">
-        {error && <p className="error">{error}</p>}
-        {isPending && <p className="loading">Loading...</p>}
-        {three_first_articles &&
-          three_first_articles.map((article) => (
-            <BlogCards
-              key={article._id}
-              title={article.title}
-              introduction={article.introduction}
-              date={article.createdAt}
-              articleId={article._id}
+    <section className="mx-auto w-full max-w-7xl gap-10 sm:px-28 lg:px-0">
+      <div className="flex flex-col gap-16 lg:flex-row lg:px-24 ">
+        {/* Blog Cards */}
+        <section className="flex flex-col gap-4 lg:w-[55%]">
+          {error && <Error error={error} errorHeight={"h-full"} />}
+          {isPending && (
+            <Loading
+              loadingColor={"teal"}
+              loadingSize={50}
+              loadingHeight={"h-full"}
             />
-          ))}
-      </div>
+          )}
+          {three_first_articles &&
+            three_first_articles.map((article) => (
+              <ArticleCard
+                key={article._id}
+                title={article.title}
+                introduction={article.introduction}
+                date={article.createdAt}
+                articleId={article._id}
+                isStacked={true}
+              />
+            ))}
+        </section>
 
-      {/* Mock Emailing && Work Experience */}
-      <div className="flex flex-col gap-4 mt-4">
-        <MockEmailing toggleToastNotification={toggleToastNotification} />
-        <WorkExperience toggleToastNotification={toggleToastNotification} />
-      </div>
+        {/* Mock Emailing && Work Experience */}
+        <section className="mt-4 flex flex-col gap-4 px-6 lg:w-[45%]">
+          <MockEmailing toggleToastNotification={toggleToastNotification} />
+          <WorkExperience toggleToastNotification={toggleToastNotification} />
+        </section>
 
-      <Toast
-        bgColor={"bg-teal-500"}
-        textColor={"text-zinc-100"}
-        elementType={"button"}
-        toastNotification={toastNotification}
-        setToastNotification={setToastNotification}
-      />
+        <Toast
+          bgColor={"bg-teal-500"}
+          textColor={"text-zinc-100"}
+          elementType={"button"}
+          toastNotification={toastNotification}
+          setToastNotification={setToastNotification}
+        />
+      </div>
     </section>
   );
 };

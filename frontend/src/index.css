@@ -2,16 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+/* body */
+
+body {
+  background-color: #f4f4f5;
+}
+.dark {
+  background-color: black;
+}
+
 @layer components {
   .nav-links {
-    @apply hover:text-teal-500 px-3 py-2 text-zinc-800 dark:text-white dark:hover:text-teal-500 text-sm font-medium;
+    @apply px-3 py-2 text-sm font-medium text-zinc-800 hover:text-teal-500 dark:text-white dark:hover:text-teal-500;
   }
 
   .nav-border {
-    @apply rounded-full border-zinc-800/5 border-[1px] backdrop-blur shadow-md dark:bg-zinc-800/90;
+    @apply rounded-full border-[1px] border-zinc-800/5 shadow-md backdrop-blur dark:bg-zinc-800/90;
+  }
+
+  .nav-menu-links {
+    @apply cursor-pointer border-b-[1px] border-zinc-100 py-2 dark:border-zinc-700/60 dark:text-white;
+  }
+
+  .auth-input {
+    @apply h-9 w-full rounded-lg border-[1px] border-zinc-200 px-3 py-5 font-medium shadow-sm outline-teal-500  dark:border-0 dark:bg-zinc-700  dark:text-white dark:outline-teal-600;
   }
 }
 
-/* fetch */
-.error {
+/* active nav link */
+.active {
+  color: teal;
 }

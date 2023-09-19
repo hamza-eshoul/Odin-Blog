@@ -7,44 +7,44 @@ const Footer = () => {
   const { logout } = useLogout();
 
   return (
-    <footer className="flex  px-20 items-center border-t-[1px]  border-zinc-100 pt-10 pb-16 mt-20 dark:border-zinc-800">
+    <footer className="relative mx-auto mt-20 flex max-w-7xl flex-col items-center justify-center gap-6 border-t-[1px] border-zinc-100 px-16 py-10 dark:border-zinc-800 md:flex-row ">
       {/* Links */}
-      <div className="flex gap-2 px-3 mr-auto ">
-        <Link to="/" className="nav-links">
-          Home
-        </Link>
-        <Link to="/articles_list" className="nav-links">
-          Articles
-        </Link>
+      <ul className="mr-auto flex w-full items-center justify-center gap-1 px-3 ">
+        <li className="nav-links ">
+          <Link to="/">Home</Link>
+        </li>
+
+        <li className="nav-links ">
+          <Link to="/articles_list">Articles</Link>
+        </li>
+
         {user && (
-          <div className="flex">
-            <button
-              className="nav-links"
-              onClick={() => {
-                logout();
-              }}
-            >
-              Log out
-            </button>
-          </div>
+          <li
+            className="nav-links cursor-pointer "
+            onClick={() => {
+              logout();
+            }}
+          >
+            Log out
+          </li>
         )}
         {!user && (
-          <div className="flex gap-2 px-3">
-            <Link to="/login" className="nav-links">
-              Log in
-            </Link>
-            <Link to="/signup" className="nav-links">
-              Sign up
-            </Link>
-          </div>
+          <>
+            <li className="nav-links ">
+              <Link to="/login">Log in</Link>
+            </li>
+            <li className="nav-links ">
+              <Link to="/signup">Sign up</Link>
+            </li>
+          </>
         )}
-      </div>
+      </ul>
 
       {/* Copyright */}
-      <p className="text-sm text-zinc-400 dark:text-zinc-500">
+      <span className="w-full text-center text-sm text-zinc-400 dark:text-zinc-500">
         {" "}
         &copy; 2023 Hamza Eshoul. All rights reserved.
-      </p>
+      </span>
     </footer>
   );
 };

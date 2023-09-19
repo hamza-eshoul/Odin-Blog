@@ -1,141 +1,72 @@
-import React, { useState } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import { Link, useNavigate } from "react-router-dom";
-import { MoonLoader } from "react-spinners";
-import { useAuthContext } from "../hooks/useAuthContext";
+import { useState } from "react";
+import { useLogin } from "../hooks/useLogin";
+import { Link } from "react-router-dom";
+
+// components
+import Error from "../components/Error";
 
 const Login = () => {
-  // state
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const { error, isPending, login } = useLogin();
 
-  // hooks
-  const { dispatch } = useAuthContext();
-  const navigate = useNavigate();
-
-  // functions
-  const handleLogin = (e) => {
-    setIsLoading(true);
-    setError(null);
-
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // login POST request
-    const loginUser = async () => {
-      const response = await fetch(
-        "https://odin-blog-api-rezs.onrender.com/user/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, password }),
-        }
-      );
 
-      const json = await response.json();
-
-      if (!response.ok) {
-        setIsLoading(false);
-        setError(json.error);
-      }
-
-      if (response.ok) {
-        // save the user to local storage
-        localStorage.setItem("user", JSON.stringify(json));
-
-        // update the loading state
-        setIsLoading(false);
-
-        // update the global user state
-        dispatch({ type: "LOGIN", payload: json });
-
-        // navigate to homepage
-        navigate("/");
-      }
-    };
-
-    loginUser();
+    await login("https://odin-blog-api-rezs.onrender.com/user/login", {
+      username,
+      password,
+    });
   };
 
   return (
-    <main className="max-w-6xl mx-auto bg-white h-full shadow-sm border-[1px] border-zinc-800/5 pt-6 relative dark:bg-zinc-900 dark:border-zinc-800/90">
-      <Navbar />
-
+    <main className="relative mx-auto max-w-7xl">
       {/* Log in */}
-      <section className="max-w-2xl mx-auto bg-white border-[1px] my-48 border-zinc-200  rounded-lg p-10 dark:bg-zinc-800/90 dark:border-zinc-700">
+      <section className="mx-auto my-48 max-w-2xl px-4 sm:px-8">
         {/* Form */}
 
         <form
-          className="flex flex-col gap-2 items-center"
-          onSubmit={handleLogin}
+          className="flex flex-col items-center gap-5 rounded-lg border-[1px] border-zinc-200 bg-white  px-6 py-10 dark:border-zinc-700  dark:bg-zinc-800/90 sm:px-10"
+          onSubmit={handleSubmit}
         >
           <h1 className="text-4xl font-bold dark:text-white"> Log In</h1>
-          <p className="text-zinc-700/90 leading-7 text-justify dark:text-zinc-400">
+          <p className="text-center  leading-7 text-zinc-700/90 dark:text-zinc-400">
             Don't have an account ?{" "}
-            <Link to="/signup" className="text-teal-500">
-              {" "}
+            <Link to="/signup" className="font-medium text-teal-500">
               Sign up
             </Link>
           </p>
-          <div className="flex flex-col gap-6 mt-6 w-full">
-            <div className="flex flex-col gap-3">
-              <label className="text-lg font-semibold dark:text-zinc-300">
-                {" "}
-                Username:{" "}
-              </label>
+
+          <div className="flex w-full flex-col gap-3">
+            <label className="space-y-2 text-lg font-semibold dark:text-zinc-300">
+              <span>Username: </span>
+
               <input
                 type="text"
-                className="bg-teal-200/70 font-medium rounded-lg h-9 w-full outline-zinc-100 py-5 px-3 dark:bg-teal-400/70 dark:text-white dark:font-semibold dark:outline-zinc-600/50"
+                className="auth-input"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
-            </div>
-            <div className="flex flex-col gap-3">
-              <label className="text-lg font-semibold dark:text-zinc-300">
-                {" "}
-                Password:{" "}
-              </label>
+            </label>
+
+            <label className=" space-y-2 text-lg font-semibold dark:text-zinc-300">
+              {" "}
+              <span> Password: </span>
               <input
                 type="password"
-                className="bg-teal-200/70 font-medium rounded-lg w-full h-9 outline-zinc-100 py-5 px-3 dark:bg-teal-400/70 dark:text-white dark:font-semibold dark:outline-zinc-600/50"
+                className="auth-input"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current password"
               />
-            </div>
-
-            <div className="flex justify-center items-center">
-              {isLoading ? (
-                <MoonLoader
-                  color={"#14b8a6"}
-                  loading={isLoading}
-                  size={45}
-                  aria-label="Loading Spinner"
-                  data-testid="loader"
-                />
-              ) : (
-                <button className=" bg-teal-400/90 hover:bg-teal-500/90 cursor-pointer text-white font-medium  py-2.5 rounded-lg w-1/4 dark:text-zinc-900 dark:bg-teal-400/80 dark:hover:bg-teal-400/90">
-                  {" "}
-                  Log In
-                </button>
-              )}
-            </div>
-
-            {error !== null ? (
-              <div className="text-red-500 font-semibold text-center text-lg">
-                {" "}
-                {error}{" "}
-              </div>
-            ) : (
-              ""
-            )}
+            </label>
           </div>
+          <button className="cursor-pointer rounded-lg bg-teal-400 px-10 py-2.5 font-medium text-white hover:bg-teal-500/90 dark:bg-teal-500/80  dark:hover:bg-teal-500/90">
+            {isPending ? "Loading ..." : "Log in"}
+          </button>
+          {error && <Error error={error} errorHeight={"h-full"} />}
         </form>
       </section>
-
-      <Footer />
     </main>
   );
 };
