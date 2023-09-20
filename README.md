@@ -47,6 +47,6 @@ npm run start
 ```
 
 - Open http://localhost:3000 with your browser to access a local version of the project's client
-- The API endpoints listed in the backend folder can be accessed through the hosted API on https://odin-blog-api-rezs.onrender.com/.
+- The API endpoints listed in the backend folder can be accessed through the hosted API on https://odin-blog-api-rezs.onrender.com/
 
 - The two main API endpoints are the GET https://odin-blog-api-rezs.onrender.com/articles endpoint and the POST https://odin-blog-api-rezs.onrender.com/user endpoint
