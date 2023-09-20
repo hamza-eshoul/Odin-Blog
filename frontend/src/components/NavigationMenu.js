@@ -18,7 +18,9 @@ const NavigationMenu = ({
     <>
       <div
         className={`${
-          isNavigationMenu ? "opacity-100" : "opacity-0"
+          isNavigationMenu
+            ? "opacity-100"
+            : "left-[-9999px] top-[-9999px] opacity-0"
         }  fixed top-20 z-30  ml-2 w-[90%] rounded-2xl bg-white px-6 py-8 transition-opacity duration-300 dark:border-[1px] dark:border-zinc-800 dark:bg-zinc-800 `}
       >
         {/* Header */}
