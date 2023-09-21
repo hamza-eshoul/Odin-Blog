@@ -4,7 +4,7 @@
 
 Ce dépôt comprend le Full Stack Blog API projet créé pour [Odin Project](https://www.theodinproject.com/lessons/nodejs-blog-api).
 
-L'objectif de ce project est de créer une Restful API en utilisant ExpressJS destinée à servir de backend pour un blog créé avec ReactJS
+L'objectif de ce projet est de créer une Restful API en utilisant ExpressJS destinée à servir de backend pour un blog créé avec ReactJS
 
 - Lien du projet - https://odin-blog-project.onrender.com/
 - Frontend dépôt du projet - https://github.com/skynter/Blog-API-frontend
