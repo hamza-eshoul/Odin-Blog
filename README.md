@@ -1,4 +1,6 @@
-## Blog Project
+## Blog API Project
+
+[![fr](https://img.shields.io/badge/lang-fr-blue)](README.fr.md)
 
 This is the parent repository for the Full Stack Blog API Project built for the [Odin Project Curriculum](https://www.theodinproject.com/lessons/nodejs-blog-api).
 
