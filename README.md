@@ -43,7 +43,7 @@ To run the project locally :
 - Access the project's frontend folder and run the following command to spin up a local development server :
 
 ```
-npm run start
+npm start
 ```
 
 - Open http://localhost:3000 with your browser to access a local version of the project's client
