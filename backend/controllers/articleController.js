@@ -97,7 +97,7 @@ exports.delete_article_comment = async (req, res) => {
     );
 
     const updatedArticle = await Article.findByIdAndUpdate(
-      articleId,
+      article_id,
       {
         $set: {
           comments: filteredArticleComments,
