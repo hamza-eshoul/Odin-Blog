@@ -4,13 +4,13 @@ export const useAddComment = () => {
   const [error, setError] = useState(null);
   const [isPending, setIsPending] = useState(null);
 
-  const addComment = async (user, commentContent, articleId) => {
+  const addComment = async (user, commentContent, article_id) => {
     setIsPending(true);
     setError(null);
 
     try {
       const res = await fetch(
-        "https://odin-blog-api-rezs.onrender.com/articles/comment",
+        `https://odin-blog-api-rezs.onrender.com/articles/${article_id}/comments`,
         {
           method: "POST",
           headers: {
@@ -19,7 +19,6 @@ export const useAddComment = () => {
           body: JSON.stringify({
             user,
             commentContent,
-            articleId,
           }),
         },
       );

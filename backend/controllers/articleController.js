@@ -58,12 +58,13 @@ exports.get_one_article = async (req, res) => {
   }
 };
 
-exports.add_comment_article = async (req, res) => {
-  const { user, commentContent, articleId } = req.body;
+exports.add_article_comment = async (req, res) => {
+  const { article_id } = req.params;
+  const { user, commentContent } = req.body;
 
   try {
     const addArticleComment = await Article.findByIdAndUpdate(
-      articleId,
+      article_id,
       {
         $push: {
           comments: {
@@ -86,8 +87,9 @@ exports.add_comment_article = async (req, res) => {
   }
 };
 
-exports.delete_comment_article = async (req, res) => {
-  const { articleId, articleComments, commentId } = req.body;
+exports.delete_article_comment = async (req, res) => {
+  const { article_id } = req.params;
+  const { articleComments, commentId } = req.body;
 
   try {
     const filteredArticleComments = articleComments.filter(

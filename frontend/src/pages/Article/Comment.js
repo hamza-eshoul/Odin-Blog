@@ -36,17 +36,17 @@ const Comment = ({
     setError(null);
     setIsPending(true);
 
-    const articleId = article._id;
+    const article_id = article._id;
     const articleComments = article.comments;
     try {
       const res = await fetch(
-        "https://odin-blog-api-rezs.onrender.com/articles/comment",
+        `https://odin-blog-api-rezs.onrender.com/articles/${article_id}/comments`,
         {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ articleId, articleComments, commentId }),
+          body: JSON.stringify({ articleComments, commentId }),
         },
       );
 
