@@ -5,11 +5,11 @@ const articleController = require("../controllers/articleController");
 // #1 Articles
 router.get("/", articleController.get_all_articles);
 
-router.get("/:id", articleController.get_one_article);
-
 router.get("/three_first_articles", articleController.get_three_first_articles);
 
 router.get("/five_articles", articleController.get_five_articles);
+
+router.get("/:id", articleController.get_one_article);
 
 // #2 Articles Comments
 
